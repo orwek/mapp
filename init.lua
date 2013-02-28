@@ -27,6 +27,7 @@ radar = {
                            if tiles ~= nil then 
                               tile = tiles[1]                              
                               if type(tile) == "table" then
+							     os.sleep(100) 
                                  --minetest.debug(minetest.serialize(tiles))
                                  tile = tile["name"]
                               end                              
