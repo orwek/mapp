@@ -10,36 +10,60 @@ radar = {
 	diggable=true,
 	on_punch = function(pos, node, puncher)
   local map = ""
+  local p = 0
   for i = -16,16,1 do
       for j = -16,16,1 do
-          local k=pos.y+100
-          while true do
-                 local pos1 = {x = pos.x+i, y = k, z = pos.z+j}
-                 local node = minetest.env:get_node_or_nil(pos1)
-                 if node ~=nil
-                 then
-                     local tile = ""
-                     if node.name ~= "air"
-                      then
-                        local def = minetest.registered_nodes[node.name]
-                        if def ~= nil then 
-                           local tiles = def["tiles"]                        
-                           if tiles ~= nil then 
-                              tile = tiles[1]                              
-                              if type(tile) == "table" then
-                                 --minetest.debug(minetest.serialize(tiles))
-                                 tile = tile["name"]
-                              end                              
-                           end
-                        end                        
---                        local point = "image["..tostring(i+8).."/32,"..tostring(j+8).."/32;1/32,1/32;" ..tile.."]"
-                        local point = "image[".. 0.15*(i+16) ..",".. 0.15*(j+16) ..";0.2,0.2;" ..tile.."]"
-                        map = map .. point
-                        break
-                     end
-                 end
-                 k = k - 1     
-          end          
+          local po = {x = pos.x+i, y = pos.y, z = pos.z+j}                    
+          local no = minetest.env:get_node(po)
+          local k=po.y
+		  if no.name == "air" then
+             while no.name == "air" do
+                 k=k-1                    
+                 po = {x = pos.x+i, y = k, z = pos.z+j}                    
+                 no = minetest.env:get_node(po)               
+            end             
+          else
+             local no = minetest.env:get_node_or_nil(po)
+             while (no.name ~= "air") and (no ~= nil) do
+                 k=k+1                    
+                 po = {x = pos.x+i, y = k, z = pos.z+j}                    
+                 no = minetest.env:get_node(po)               
+                 minetest.debug("x = "..po.x..", y = ".. k .. ", z = ".. po.z)						
+            end             
+
+		  end          
+          local node = minetest.env:get_node(po)
+          local tile = ""
+          local def = minetest.registered_nodes[node.name]                
+          local tiles = def["tiles"]
+          if tiles ~=nil then                        
+             local tile = tiles[1]                              
+                         
+          if type(tile)=="table" then tile=tile["name"] end
+             local point = "image[".. 0.15*(i+16) ..",".. 0.15*(j+16) ..";0.2,0.2;" ..tile.."]"				
+
+				ppp1 = {x=po.x+1,y=po.y,z=po.z}
+				ppp2 = {x=po.x-1,y=po.y,z=po.z}
+				ppp3 = {x=po.x,y=po.y+1,z=po.z}
+				ppp4 = {x=po.x,y=po.y-1,z=po.z}
+				ppp5 = {x=po.x,y=po.y,z=po.z+1}
+				ppp6 = {x=po.x,y=po.y,z=po.z-1}				
+<<<<<<< HEAD
+				if (minetest.env:get_node(ppp1).name=='air')
+				or (minetest.env:get_node(ppp2).name=='air')
+				or (minetest.env:get_node(ppp3).name=='air')
+				or (minetest.env:get_node(ppp4).name=='air')
+				or (minetest.env:get_node(ppp5).name=='air')
+				or (minetest.env:get_node(ppp6).name=='air')
+				then
+                map = map .. point
+				end
+                minetest.debug("x = "..po.x..", y = ".. k .. ", z = ".. po.z)						
+
+
+=======
+>>>>>>> 4e602c6... vyfs
+          end		  
       end     
   end
   
