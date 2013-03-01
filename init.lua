@@ -1,7 +1,7 @@
-radar = {
+map_block = {
 	description = "map block",
 	inventory_image = ("map_block.png"),
-	tiles = {"map_block.png"},
+	tiles = {"map_block.png","map_block_s.png"},
 	drawtype="normal",
 	is_ground_content = true,
 	groups = {crumbly=3},
@@ -67,7 +67,7 @@ radar = {
            if mapar[i][j].y ~= mapar[i][j-1].y then mapar[i][j].im = mapar[i][j].im .. "^1black_blockb.png" end
            if mapar[i][j].y ~= mapar[i-1][j].y then mapar[i][j].im = mapar[i][j].im .. "^1black_blockl.png" end
            if mapar[i][j].y ~= mapar[i+1][j].y then mapar[i][j].im = mapar[i][j].im .. "^1black_blockr.png" end
-           point = "image[".. 0.15*(i)-16*0.15 ..",".. 0.15*(32-j)-16*0.15 ..";0.2,0.2;" .. mapar[i][j].im .. "]"
+           point = "image[".. 0.15*(i) ..",".. 0.15*(32-j)+0.1 ..";0.2,0.2;" .. mapar[i][j].im .. "]"
            map = map .. point
       end
   end
@@ -75,12 +75,12 @@ radar = {
   local meta= minetest.env:get_meta(pos)
   local signal=""
   signal=map
-  meta:set_string("formspec","size[0.1,0.1]"..
+  meta:set_string("formspec","size[5.2,5]"..
   signal)	  	
 	end,	  
 }
 
-minetest.register_node("mapp:map_block", radar)
+minetest.register_node("mapp:map_block", map_block)
 	
 minetest.register_craft({
 	output = 'mapp:map_block',
