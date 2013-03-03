@@ -27,7 +27,6 @@ function map_handler (itemstack, user, pointed_thing)
            yaw = math.fmod (yaw, 360)
            if yaw<0 then yaw = 360 - yaw end
            if yaw>360 then yaw = yaw - 360 end
-           minetest.chat_send_all(yaw)           
            if      yaw<= 5 then yaw =  0 rotate = 90
            elseif yaw<= 15 then yaw = 10 rotate = 90           
            elseif yaw<= 25 then yaw = 20 rotate = 90
