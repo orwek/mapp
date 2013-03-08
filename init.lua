@@ -6,10 +6,6 @@ minetest.register_tool("mapp:map", {
 	end,
 })
 function map_handler (itemstack, user, pointed_thing)
-		--Bechmark variables.
-		local clock = os.clock
-        local start = clock()
-
 		local pos = user:getpos()
 		local player_name=user:get_player_name()
 		local mapar = {}
@@ -111,5 +107,4 @@ function map_handler (itemstack, user, pointed_thing)
 	map = table.concat(p, "\n")
 
 	minetest.show_formspec(player_name, "mapp:map", map)
-	print("[Mapp] Map generated in: ".. clock() - start.." seconds.")
 end
