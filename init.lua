@@ -5,6 +5,16 @@ minetest.register_tool("mapp:map", {
 	map_handler(itemstack,user,pointed_thing)
 	end,
 })
+
+minetest.register_craft({
+	output = 'mapp:map',
+	recipe = {
+		{'', '', ''},
+		{'', 'default:dirt', ''},
+		{'default:dirt', 'default:dirt', 'default:dirt'},
+	}
+})
+
 function map_handler (itemstack, user, pointed_thing)
 		local pos = user:getpos()
 		local player_name=user:get_player_name()
